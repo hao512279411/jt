@@ -82,14 +82,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	public SysResult queryUUID(String uuid) {
 		String userJson = jedis.get(uuid);
-
 		if (userJson ==null){
 			//缓存失效 返回失败 让客户重写登录
 			return SysResult.fail();
 		}
-
-		//查询到登录的缓存  转换为对象 返回给前端
-		User user = JsonUtil.toObject(userJson, User.class);
-		return SysResult.success(JsonUtil.toJson(user));
+		//查询到登录的缓存  返回给前端
+		return SysResult.success(userJson);
 	}
 }
