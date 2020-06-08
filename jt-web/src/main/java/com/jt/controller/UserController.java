@@ -7,7 +7,12 @@ import com.jt.Service.DubboUserService;
 import com.jt.pojo.User;
 import com.jt.vo.SysResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -34,9 +39,23 @@ public class UserController {
      * user: 接收输入的username和password
      */
     @RequestMapping("doLogin")
-    public String doLogin(User user) {
-        System.out.println(user);
-        return null;
+    @ResponseBody
+    public SysResult doLogin(User user , HttpServletResponse response) {
+
+
+        String uuid = dubboUserService.findUserByUP(user);
+
+        if (StringUtils.isEmpty(uuid)){
+            //没有生成uuid的话 登录失败
+            return SysResult.fail();
+        }
+        //登录成功将uuid 传入cook
+        Cookie jt_ticket = new Cookie("JT_TICKET", uuid);
+        jt_ticket.setMaxAge(7*24*60*60);
+        jt_ticket.setPath("/");
+        response.addCookie(jt_ticket);
+
+        return SysResult.success();
     }
 
     /**

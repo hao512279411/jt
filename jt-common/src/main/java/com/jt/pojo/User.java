@@ -3,9 +3,7 @@ package com.jt.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -17,6 +15,8 @@ import java.util.Date;
 @TableName("tb_user")
 @Accessors(chain = true)
 @Data
+@EqualsAndHashCode
+@ToString
 public class User extends BasePojo implements Serializable {
 
     private static final long serialVersionUID = -45859811614223037L;

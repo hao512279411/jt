@@ -3,6 +3,7 @@ package com.jt.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.exception.ServiceException;
 import com.jt.pojo.User;
+import com.jt.util.JsonUtil;
 import com.jt.vo.SysResult;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.data.repository.query.QueryMethod;
 import org.springframework.stereotype.Service;
 
 import com.jt.mapper.UserMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import redis.clients.jedis.JedisCluster;
 
 import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialException;
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService {
 	@Resource
 	private UserMapper userMapper;
 
+	@Resource
+	JedisCluster jedis;
 
 	/**
 	 * 检查注册用户名填写的资料是否重复
@@ -57,6 +62,7 @@ public class UserServiceImpl implements UserService {
 	 * 提交注册信息  新增单个用户
 	 * URL: http://sso.jt.com/user/register
 	 */
+
 	public SysResult doRegister(User user) {
 
 		//1、将密码进行加密
@@ -67,5 +73,23 @@ public class UserServiceImpl implements UserService {
 			return SysResult.success(user.getUsername());
 		}
 		return SysResult.fail();
+	}
+
+	/**
+	 * 通过JSONP 查询当前用户 uuid是否存在缓存  存在的话就是已登录客户
+	 * url: http://sso.jt.com/user/query/356c5420-efc7-48ca-acd7-bd32437a58e4
+	 * GET
+	 */
+	public SysResult queryUUID(String uuid) {
+		String userJson = jedis.get(uuid);
+
+		if (userJson ==null){
+			//缓存失效 返回失败 让客户重写登录
+			return SysResult.fail();
+		}
+
+		//查询到登录的缓存  转换为对象 返回给前端
+		User user = JsonUtil.toObject(userJson, User.class);
+		return SysResult.success(JsonUtil.toJson(user));
 	}
 }

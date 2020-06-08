@@ -19,4 +19,10 @@ public interface DubboUserService {
      */
     SysResult doRegister(User user);
 
+    /**
+     * url: http://www.jt.com/user/doLogin?r=0.08355039569574596
+     * 用户发送账号密码登录
+     * user: 接收输入的username和password
+     */
+    String findUserByUP(User user);
 }
