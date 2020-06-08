@@ -8,16 +8,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 //用户表
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("tb_user")
 @Accessors(chain = true)
-public class User extends BasePojo{
+@Data
+public class User extends BasePojo implements Serializable {
 
+    private static final long serialVersionUID = -45859811614223037L;
     //    id                   bigint not null auto_increment,
     @TableId(type = IdType.AUTO)
     private Long id;

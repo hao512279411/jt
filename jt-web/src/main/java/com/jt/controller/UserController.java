@@ -1,23 +1,21 @@
 package com.jt.controller;
 
-import com.jt.pojo.User;
-import com.jt.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.jt.Service.DubboUserService;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.jt.pojo.User;
+import com.jt.vo.SysResult;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/user")
-public class UserConroller {
+public class UserController {
 
-    @Resource
-    UserService userService;
+    @Reference
+    DubboUserService dubboUserService;
 
     /**
      * url: http://www.jt.com/user/login.html
@@ -45,10 +43,10 @@ public class UserConroller {
      * URL: http://www.jt.com/user/doRegister
      * 提交注册信息  新增单个用户
      */
-    @RequestMapping("/doRegister")
+    @PostMapping("/doRegister")
     @ResponseBody
-    public String doRegister(User user) {
-       return userService.doRegister(user);
+    public SysResult doRegister(User user) {
+        return  dubboUserService.doRegister(user);
     }
 
 

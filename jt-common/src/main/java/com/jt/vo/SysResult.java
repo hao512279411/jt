@@ -5,11 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Data
 @Accessors
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysResult<T> {
+public class SysResult<T> implements Serializable {
+    private static final long serialVersionUID = -1933432746036138417L;
     private Integer status;  //状态值 200为成功
     private String msg;      //失败提示 字符串
     private T data;      //返回的对象

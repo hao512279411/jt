@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.QueryMethod;
 import org.springframework.stereotype.Service;
 
 import com.jt.mapper.UserMapper;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialException;
@@ -59,8 +60,8 @@ public class UserServiceImpl implements UserService {
 	public SysResult doRegister(User user) {
 
 		//1、将密码进行加密
-		SimpleHash sh =new SimpleHash("MD5",user.getPassword());//hashIterations表示加密次数)
-		user.setPassword(sh.toHex()).setCreated(new Date()).setUpdated(new Date());
+		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+		user.setPassword(md5Pass).setCreated(new Date()).setUpdated(new Date());
 		int results = userMapper.insert(user);
 		if (results > 0){
 			return SysResult.success(user.getUsername());
