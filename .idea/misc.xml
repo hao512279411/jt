@@ -5,6 +5,7 @@
     <file type="web" url="file://$PROJECT_DIR$/jt-cart" />
     <file type="web" url="file://$PROJECT_DIR$/jt-demo" />
     <file type="web" url="file://$PROJECT_DIR$/jt-manage" />
+    <file type="web" url="file://$PROJECT_DIR$/jt-order" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

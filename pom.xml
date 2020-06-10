@@ -24,6 +24,7 @@
         <module>jt-web</module>
         <module>jt-sso</module>
         <module>jt-cart</module>
+        <module>jt-order</module>
     </modules>
 
     <!-- ctrl + a + i格式化 -->

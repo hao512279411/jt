@@ -13,6 +13,7 @@
         <module name="jt-web" />
         <module name="jt-common" />
         <module name="jt-demo" />
+        <module name="jt-order" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +26,7 @@
       <module name="jt-common" options="-parameters" />
       <module name="jt-demo" options="-parameters" />
       <module name="jt-manage" options="-parameters" />
+      <module name="jt-order" options="-parameters" />
       <module name="jt-sso" options="-parameters" />
       <module name="jt-web" options="-parameters" />
     </option>

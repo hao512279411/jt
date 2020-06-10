@@ -85,4 +85,14 @@ public class DubboCartServiceImpl implements DubboCartService {
     }
 
 
+    /**
+     * 跳入到购物车订单结算界面
+     * url:http://www.jt.com/order/create.html
+     */
+    public List<Cart> orderCart(Long userId) {
+        QueryWrapper<Cart> queryWrapper=new QueryWrapper();
+        queryWrapper.eq("user_id",userId);
+        return cartMapper.selectList(queryWrapper);
+
+    }
 }

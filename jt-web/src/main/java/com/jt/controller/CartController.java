@@ -39,11 +39,7 @@ public class CartController {
      */
     @GetMapping("/show")
     public String show(Model model, HttpServletRequest request){
-//        User user = userUtil.getUserByReq(request);
-//        Long userId =  user.getId();
         Long userId = ((User)request.getAttribute("JT_USER")).getId();
-
-
         List<Cart> cartList = dubboCartService.findCartListByUserId(userId);
         model.addAttribute("cartList",cartList);
         return "cart";

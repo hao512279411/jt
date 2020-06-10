@@ -220,10 +220,10 @@
 				  <tr>
 				    <td class="fore1">
 					   <div class="p-goods">
-						  <div class="p-img"><a href="http://www.jt.com/item/${item.id}.html" target='_blank'><img width="52" height="52" src="${item.images[0]}"></a></div>
+						  <div class="p-img"><a href="http://www.jt.com/items/${item.id}.html" target='_blank'><img width="52" height="52" src="${item.images[0]}"></a></div>
 							 <div class="p-detail">
 								<div class="p-name">
-									<a href="http://www.jt.com/item/${item.id}.html" target='_blank'>
+									<a href="http://www.jt.com/items/${item.id}.html" target='_blank'>
 										${item.title }
 								    </a>
 								</div>

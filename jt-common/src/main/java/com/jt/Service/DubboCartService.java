@@ -25,4 +25,9 @@ public interface DubboCartService {
      * Post
      */
     void updateNum(Cart cart);
+    /**
+     * 跳入到购物车订单结算界面
+     * url:http://www.jt.com/order/create.html
+     */
+    public List<Cart> orderCart(Long userid);
 }
