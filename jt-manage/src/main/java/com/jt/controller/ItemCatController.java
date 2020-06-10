@@ -2,6 +2,7 @@ package com.jt.controller;
 
 import com.jt.service.ItemCatService;
 import com.jt.vo.EasyUITree;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +19,9 @@ public class ItemCatController {
 
     //通过catId获取cat的Name
     //item/cat/queryItemName
-    @RequestMapping("queryItemName")
+    @PostMapping("queryItemName")
     public String queryItemName(Integer itemCatId) {
+        System.out.println("访问到我");
         return itemCatService.queryItemName(itemCatId);
     }
     //根据ID查询所有cat的数据结构
@@ -27,6 +29,7 @@ public class ItemCatController {
     @RequestMapping("list")
 
     public List<EasyUITree> catNameAll(@RequestParam (defaultValue = "0") Long id){
+
         return itemCatService.catAll(id);
     }
 }

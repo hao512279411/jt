@@ -25,4 +25,13 @@ public interface DubboUserService {
      * user: 接收输入的username和password
      */
     String findUserByUP(User user);
+
+
+    /**
+     * 退出登录状态
+     * 删除用户的cookie 和缓存里的cookie
+     * URL: http://www.jt.com/user/logout.html
+     * GET
+     */
+    void removeCookie(String redisKey);
 }

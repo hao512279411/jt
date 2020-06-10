@@ -13,7 +13,7 @@ public class TestAop {
 
 
     //设置要代理的类
-//    @Pointcut("within(com.jt.service.CatServiceImpl)")
+//    @Pointcut("within(com.jt.com.jt.service.CatServiceImpl)")
     @Pointcut("bean(catServiceImpl)")
     public void testAopa(){
         System.out.println("哈哈哈");

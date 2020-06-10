@@ -56,7 +56,7 @@
 		<i>京淘价：</i>
 		<strong>￥<fmt:formatNumber groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${item.price / 100 }"/></strong>
 	</div>
-	<div class="service">由 京淘 发货</div>
+	<div class="com.jt.service">由 京淘 发货</div>
 	<div class="extra">
 		<span class="star"><span class="star-white"><span class="star-yellow h5">&nbsp;</span></span></span>
 	</div>

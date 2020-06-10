@@ -6,6 +6,7 @@ import com.jt.Service.DubboUserService;
 
 import com.jt.pojo.User;
 import com.jt.vo.SysResult;
+import org.jboss.netty.handler.codec.http.CookieEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,9 @@ public class UserController {
      * url: http://www.jt.com/user/login.html
      * 跳转登录界面
      */
-    @GetMapping("/{path}")
-    public String login(@PathVariable String path) {
-
-        return path;
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
 
@@ -53,20 +53,57 @@ public class UserController {
         Cookie jt_ticket = new Cookie("JT_TICKET", uuid);
         jt_ticket.setMaxAge(7*24*60*60);
         jt_ticket.setPath("/");
+        jt_ticket.setDomain("jt.com");
+
         response.addCookie(jt_ticket);
 
         return SysResult.success();
     }
 
     /**
-     * URL: http://www.jt.com/user/doRegister
      * 提交注册信息  新增单个用户
+     * URL: http://www.jt.com/user/doRegister
      */
     @PostMapping("/doRegister")
     @ResponseBody
     public SysResult doRegister(User user) {
         return  dubboUserService.doRegister(user);
     }
+
+
+    /**
+     * 退出登录状态
+     * 删除用户的cookie 和缓存里的cookie
+     * URL: http://www.jt.com/user/logout.html
+     * GET
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        System.out.println("进入到删除cookie方法");
+        Cookie cookie=null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length<1){
+            return "redirect:/";
+        }
+
+        for (Cookie ck:cookies) {
+            if ("JT_TICKET".equals(ck.getName())){
+                cookie = ck;
+                break;
+            }
+        }
+        //删除缓存中的cookie
+        dubboUserService.removeCookie(cookie.getValue());
+        //删除客户端的cookie
+//        cookie.setValue("");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        cookie.setDomain("jt.com");
+        response.addCookie(cookie);
+        return "redirect:/";
+
+    }
+
 
 
 }

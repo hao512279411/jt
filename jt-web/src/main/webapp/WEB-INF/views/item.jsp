@@ -91,7 +91,7 @@
 		</div>
 		<span class="clr"></span>
 	</li>
-	<li id="summary-service" class="hide">
+	<li id="summary-com.jt.service" class="hide">
 		<div class="dt">服&#x3000;&#x3000;务：</div>
 		<div class="dd">由 京淘 发货并提供售后服务。</div>
 	</li>

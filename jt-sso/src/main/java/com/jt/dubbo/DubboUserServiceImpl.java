@@ -65,7 +65,7 @@ public class DubboUserServiceImpl implements DubboUserService {
     @Transactional
     public SysResult doRegister(User user) {
         //1、将密码进行加密
-        SimpleHash sh =new SimpleHash("MD5",user.getPassword());//hashIterations表示加密次数)
+        SimpleHash sh =new SimpleHash("MD5",user.getPassword());
         user.setPassword(sh.toHex()).setEmail(user.getPhone()).setCreated(new Date()).setUpdated(new Date());
         System.out.println("当前USer加密后的 详情"+user);
         int results = userMapper.insert(user);
@@ -105,4 +105,16 @@ public class DubboUserServiceImpl implements DubboUserService {
             return uuid;
         }
     }
+    /**
+     * 退出登录状态
+     * 删除用户的cookie 和缓存里的cookie
+     * URL: http://www.jt.com/user/logout.html
+     * GET
+     */
+    public void removeCookie(String redisKey) {
+        System.out.println("开始删除redisKey:"+redisKey);
+        jedisCluster.del(redisKey);
+    }
+
+
 }

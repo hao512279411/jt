@@ -22,7 +22,7 @@ public class WebItemCatController {
 
     /**
      * url: http://manage.jt.com/web/itemcat/all?callback=category.getDataService
-     *
+     * GEO  JSONP
      * 查询所有 itemcat
      */
 //    @RequestMapping("/all")
